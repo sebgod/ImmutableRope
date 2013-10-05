@@ -39,10 +39,10 @@
     <Compile Include="Unicode\CodeBlock.cs" />
     <Compile Include="Rope.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Unicode\CodePointList.cs" />
     <Compile Include="Unicode\TaggedCodePoint.cs" />
     <Compile Include="Unicode\StringBuilderHelper.cs" />
     <Compile Include="Unicode\UnicodeEnumerator.cs" />
-    <Compile Include="Unicode\UnicodeEx.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

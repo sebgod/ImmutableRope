@@ -10,8 +10,9 @@ namespace ImmutableRopeTest
         [TestMethod]
         public void TestImplicitOp()
         {
-            const string testString = "Rope";
+            const string testString = "Rope𝌲";
             Rope rope = testString;
+
 
             Assert.AreEqual(testString, (string)rope);
         }

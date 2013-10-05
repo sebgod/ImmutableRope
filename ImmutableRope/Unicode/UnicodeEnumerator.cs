@@ -11,10 +11,6 @@ namespace ImmutableRope.Unicode
         {
             _text = text;
         }
-        public static implicit operator UnicodeEnumerator(string s)
-        {
-            return new UnicodeEnumerator(s);
-        }
 
         public IEnumerator<TaggedCodePoint> GetEnumerator()
         {
@@ -27,7 +23,7 @@ namespace ImmutableRope.Unicode
                     if (i + 1 == length)
                         throw new Exception("Premature end of string; last char was a high surrogate");
 
-                    yield return char.ConvertToUtf32(current, current);
+                    yield return char.ConvertToUtf32(current, _text[++i]);
                 }
                 else
                     yield return current;

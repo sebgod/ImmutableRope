@@ -5,16 +5,24 @@ using System.Text;
 
 namespace ImmutableRope
 {
+    using Unicode;
+
     public class Rope : IEquatable<Rope>
     {
         private readonly Rope _left;
         private readonly Rope _right;
         private readonly byte _depth;
-        private readonly Unicode.TaggedCodePoint[] _content;
+        private readonly CodePointList _content;
 
-        private Rope(string content)
+        public Rope(string content)
+            : this(new CodePointList(content))
         {
+            // calling private Rope(CodePointList content)
+        }
 
+        public Rope(CodePointList content)
+        {
+            _content = content;
         }
 
         public static implicit operator Rope(string content) {
@@ -28,7 +36,7 @@ namespace ImmutableRope
 
         public override string ToString()
         {
-            return "";
+            return _content.ToString();
         }
 
         public override int GetHashCode()

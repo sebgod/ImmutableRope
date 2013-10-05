@@ -6,7 +6,7 @@ using System.Text;
 
 namespace ImmutableRope.Unicode
 {
-    enum PropertiesAndHigherBytes : byte
+    public enum PropertiesAndUnicodePlane : byte
     {
 
     }
@@ -14,13 +14,13 @@ namespace ImmutableRope.Unicode
     [StructLayout(LayoutKind.Sequential)]
     public struct TaggedCodePoint
     {
-        const byte HighPlaneCharMask = 0x3f;
+        public const uint MaxCodePoint = 0x10ffff;
+        public const byte HighPlaneCharMask = 0x3f;
 
-        private readonly CodeBlock _codeBlock;
-        private readonly PropertiesAndHigherBytes _propsAndhigh;
-        private readonly char _bmpValue;
-
-        
+        public readonly CodeBlock CodeBlock;
+        public readonly PropertiesAndUnicodePlane PropertiesAndPlane;
+        public readonly char Value;
+                
         public TaggedCodePoint(string text, int index = 0)
             : this((uint)char.ConvertToUtf32(text, index))
         {
@@ -38,31 +38,34 @@ namespace ImmutableRope.Unicode
             if (char.IsSurrogate(basicPlaneChar))
                 throw new ArgumentOutOfRangeException("basicPlaneChar", "Is a surrogate char, expected basic plane char: " + basicPlaneChar);
 
-            _bmpValue = basicPlaneChar;
-            _propsAndhigh = 0;
-            _codeBlock = CodeBlock.Invalid;
+            Value = basicPlaneChar;
+            PropertiesAndPlane = 0;
+            CodeBlock = CodeBlock.Invalid;
         }
         public TaggedCodePoint(uint codePoint)
         {
-            if (codePoint > 0x10ffff)
+            if (codePoint > MaxCodePoint)
                 throw new ArgumentOutOfRangeException("codePoint", "The maximum assignable Unicode codepoint is: 0x10ffff, but you provided: " + codePoint);
 
-            _bmpValue = (char)(codePoint & 0xff);
-            _propsAndhigh = (PropertiesAndHigherBytes)((codePoint >> 16) & HighPlaneCharMask);
-            _codeBlock = CodeBlock.Invalid;
+            Value = (char)(codePoint & char.MaxValue);
+            PropertiesAndPlane = (PropertiesAndUnicodePlane)((codePoint >> 16) & HighPlaneCharMask);
+            CodeBlock = CodeBlock.Invalid;
+        }
+
+        public byte UnicodePlane
+        {
+            get
+            {
+                return (byte)((byte)PropertiesAndPlane & HighPlaneCharMask);
+            }
         }
 
         public override string ToString()
         {
-            var _highPlaneValue = (byte) ((byte) _propsAndhigh & HighPlaneCharMask);
-            if (_highPlaneValue == 0)
-            {
-                return new string(_bmpValue, 1);
-            }
-            else
-            {
-                return char.ConvertFromUtf32((_highPlaneValue << 16) & _bmpValue);
-            }
+            var plane = UnicodePlane;
+            return plane == 0 
+                ? new string(new []{Value})
+                : char.ConvertFromUtf32((plane << 16) | Value);
         }
 
         public static implicit operator TaggedCodePoint(char bmp)
@@ -82,14 +85,15 @@ namespace ImmutableRope.Unicode
         }
         public static implicit operator uint(TaggedCodePoint @this)
         {
-            return (((uint)@this._propsAndhigh & HighPlaneCharMask) << 16) | @this._bmpValue;
+            return (((uint)@this.PropertiesAndPlane & HighPlaneCharMask) << 16) | @this.Value;
         }
         public static explicit operator char(TaggedCodePoint @this)
         {
-            if ((byte)((byte)@this._propsAndhigh & HighPlaneCharMask) > 0)
-                throw new ArgumentOutOfRangeException("this", "Not a basic multilingual plane char: " + @this);
+            var plane = @this.UnicodePlane;
+            if (plane > 0)
+                throw new ArgumentOutOfRangeException("this", @this + " is not a basic multilingual plane char, but from plane: " + plane);
 
-            return (char)@this._bmpValue;
+            return @this.Value;
         }
     }
 }
