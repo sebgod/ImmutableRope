@@ -22,6 +22,18 @@ namespace ImmutableRopeTest
         }
 
         [TestMethod]
+        public void TestBMPCodePointToString()
+        {
+            new TaggedCodePoint(ASCIIChar).ToString().Should().Be(new string(ASCIIChar, 1));
+        }
+
+        [TestMethod]
+        public void TestAstralCodePointToString()
+        {
+            new TaggedCodePoint(AstralCharSurrogatePair).ToString().Should().Be(AstralCharSurrogatePair);
+        }
+
+        [TestMethod]
         public void TestSurrogatePairConstructor()
         {
             Assert.AreEqual(AstralCharSurrogatePair, new TaggedCodePoint(HighSurrogate, LowSurrogate).ToString());
