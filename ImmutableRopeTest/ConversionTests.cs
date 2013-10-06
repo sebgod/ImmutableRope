@@ -24,7 +24,8 @@ namespace ImmutableRopeTest
         [TestMethod]
         public void TestImplicitCastFromRopeToString()
         {
-            Assert.AreEqual<Rope>(new Rope(asciiString), asciiString);
+            string implicitCast = new Rope(asciiString);
+            implicitCast.Should().Be(asciiString);
         }
 
         [TestMethod]
