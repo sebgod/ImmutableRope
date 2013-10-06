@@ -38,8 +38,7 @@ namespace ImmutableRopeTest
         [TestMethod]
         public void TestAstralChar()
         {
-            const string testString = "𝌲";
-            Assert.AreEqual(testString, new Rope(testString).ToString());
+            Assert.AreEqual(AstralCharSurrogatePair, new Rope(AstralCharSurrogatePair).ToString());
         }
 
         [TestMethod]
@@ -59,9 +58,7 @@ namespace ImmutableRopeTest
         [ExcludeFromCodeCoverage]
         void InvalidCastFromAstralCharToSysCharAction()
         {
-            const string testAstralChar = "𝌲";
-            var brokenString = testAstralChar.Substring(0, 1);
-            new Rope(brokenString);
+            new Rope(AstralCharSurrogatePair.Substring(0, 1));
         }
 
         [TestMethod]

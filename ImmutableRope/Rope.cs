@@ -41,7 +41,7 @@ namespace ImmutableRope
 
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            throw new NotImplementedException();
         }
 
         public override bool Equals(object other)

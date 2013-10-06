@@ -86,6 +86,19 @@ namespace ImmutableRopeTest
         {
             ((Action)IllegalCodePointInConstructorAction).ShouldThrow<ArgumentOutOfRangeException>();
         }
+        
+        [ExcludeFromCodeCoverage]
+        void SurrogateInSysCharConstructorAction()
+        {
+            var _ = new TaggedCodePoint(LowSurrogate);
+        }
+
+        [TestMethod]
+        public void TestSurrogateInSysCharConstructor()
+        {
+            ((Action)SurrogateInSysCharConstructorAction).ShouldThrow<ArgumentOutOfRangeException>();
+        }
+
 
         [ExcludeFromCodeCoverage]
         void IllegalCastFromNegativeCodePointAction()

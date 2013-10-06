@@ -24,7 +24,6 @@ namespace ImmutableRope.Unicode
         public TaggedCodePoint(string text, int index = 0)
             : this((uint)char.ConvertToUtf32(text, index))
         {
-            if (text == null) throw new ArgumentNullException("text");
             // calling TaggedCodePoint(uint codePoint)
         }
         public TaggedCodePoint(char high, char low)

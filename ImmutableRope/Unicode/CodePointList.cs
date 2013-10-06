@@ -99,7 +99,7 @@ namespace ImmutableRope.Unicode
 
         public IEnumerator<TaggedCodePoint> GetEnumerator()
         {
-            return (IEnumerator<TaggedCodePoint>)_codePoints.GetEnumerator();
+            return ((IEnumerable<TaggedCodePoint>)_codePoints).GetEnumerator();
         }
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
