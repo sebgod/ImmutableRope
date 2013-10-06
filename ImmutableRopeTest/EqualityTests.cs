@@ -3,6 +3,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ImmutableRope;
 using System.Globalization;
 using FluentAssertions;
+using ImmutableRope.Unicode;
+using System.Collections.Generic;
 
 namespace ImmutableRopeTest
 {
@@ -46,13 +48,13 @@ namespace ImmutableRopeTest
             var ropeL = new Rope(asciiStringL);
             var ropeU = new Rope(asciiStringU);
 
-            ropeL.Should().NotBe(ropeU);
+            Assert.AreNotEqual(ropeL, ropeU);
         }
 
         [TestMethod]
         public void TestNotEqualWithDifferentType()
         {
-            new Rope(asciiString).Should().NotBe('c');
+            Assert.AreNotEqual(new Rope(asciiString), new object());
         }
 
         [TestMethod]
@@ -146,5 +148,28 @@ namespace ImmutableRopeTest
             Assert.IsFalse(ropeL == ropeU);
         }
 
+        [TestMethod]
+        public void TestRoundTripToEnumerator()
+        {
+            var ropeOriginal = new Rope(asciiString);
+            var codePointList = new CodePointList(ropeOriginal);
+            var ropeCopy = new Rope(codePointList);
+
+            Assert.AreEqual(ropeOriginal, ropeCopy);
+        }
+
+        [TestMethod]
+        public void TestHashSet()
+        {
+            var hashSet = new HashSet<Rope>()
+            {
+                new Rope(asciiStringL),
+                new Rope(asciiStringU)
+            };
+            
+            Assert.IsFalse(hashSet.Add(asciiStringL));
+
+            hashSet.Count.Should().Be(2);
+        }
     }
 }

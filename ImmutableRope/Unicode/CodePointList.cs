@@ -104,7 +104,7 @@ namespace ImmutableRope.Unicode
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
-            return GetEnumerator();
+            return _codePoints.GetEnumerator();
         }
     }
 }

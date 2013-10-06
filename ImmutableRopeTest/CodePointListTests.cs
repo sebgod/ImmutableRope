@@ -43,5 +43,13 @@ namespace ImmutableRopeTest
         {
             new CodePointList(AstralCharSurrogatePair).Count.Should().Be(1);
         }
+
+        [TestMethod]
+        public void TestNonGenericIterator()
+        {
+            var nonGeneric = new CodePointList(AstralCharSurrogatePair).As<System.Collections.IEnumerable>().GetEnumerator();
+            Assert.IsTrue(nonGeneric.MoveNext());
+            Assert.AreEqual(AstralCodePoint, nonGeneric.Current);                
+        }
     }
 }

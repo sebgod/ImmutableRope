@@ -61,6 +61,7 @@
     <Compile Include="TaggedCodePointTests.cs" />
     <Compile Include="EqualityTests.cs" />
     <Compile Include="CodePointListTests.cs" />
+    <Compile Include="UnicodeEnumeratorTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ImmutableRope\ImmutableRope.csproj">

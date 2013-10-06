@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ImmutableRope.Unicode
 {
-    class UnicodeEnumerator : IEnumerable<TaggedCodePoint>
+    public class UnicodeEnumerator : IEnumerable<TaggedCodePoint>
     {
         private readonly string _text;
 

@@ -7,7 +7,7 @@ namespace ImmutableRope
 {
     using Unicode;
 
-    public class Rope : IEquatable<Rope>
+    public class Rope : IEquatable<Rope>, IEnumerable<TaggedCodePoint>
     {
         private readonly Rope _left;
         private readonly Rope _right;
@@ -39,9 +39,13 @@ namespace ImmutableRope
             return _content.ToString();
         }
 
+        /// <summary>
+        /// TODO: Optimize!
+        /// </summary>
+        /// <returns></returns>
         public override int GetHashCode()
         {
-            throw new NotImplementedException();
+            return _content.ToString().GetHashCode();
         }
 
         public override bool Equals(object other)
@@ -52,6 +56,10 @@ namespace ImmutableRope
             return false;
         }
 
+        /// <summary>
+        /// TODO: Optimize!
+        /// </summary>
+        /// <returns></returns>
         public bool Equals(Rope other)
         {
             if (ReferenceEquals(this, other)) return true;
@@ -69,6 +77,18 @@ namespace ImmutableRope
         public static bool operator !=(Rope a, Rope b)
         {
             return object.ReferenceEquals(a, null) || !a.Equals(b);
+        }
+        #endregion
+
+        #region Implements IEnumerable<CodePointList>
+        public IEnumerator<TaggedCodePoint> GetEnumerator()
+        {
+            return _content.GetEnumerator();
+        }
+
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
         #endregion
     }

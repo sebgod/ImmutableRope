@@ -3,6 +3,8 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ImmutableRope;
 using System.Diagnostics.CodeAnalysis;
 using FluentAssertions;
+using System.Collections.Generic;
+using ImmutableRope.Unicode;
 
 namespace ImmutableRopeTest
 {
@@ -65,6 +67,14 @@ namespace ImmutableRopeTest
         public void TestInvalidCastFromAstralCharToSysChar()
         {
             ((Action)InvalidCastFromAstralCharToSysCharAction).ShouldThrow<InvalidOperationException>();
+        }
+
+        [TestMethod]
+        public void TestNonGenericIterator()
+        {
+            var nonGeneric = new Rope(AstralCharSurrogatePair).As<System.Collections.IEnumerable>().GetEnumerator();
+            Assert.IsTrue(nonGeneric.MoveNext());
+            Assert.AreEqual(AstralCodePoint, nonGeneric.Current);    
         }
     }
 }

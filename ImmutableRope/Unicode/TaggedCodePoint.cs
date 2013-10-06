@@ -33,18 +33,17 @@ namespace ImmutableRope.Unicode
         }
 
         public TaggedCodePoint(char basicPlaneChar)
+            : this((uint)basicPlaneChar)
         {
-            if (char.IsSurrogate(basicPlaneChar))
-                throw new ArgumentOutOfRangeException("basicPlaneChar", "Is a surrogate char, expected basic plane char: " + basicPlaneChar);
-
-            Value = basicPlaneChar;
-            PropertiesAndPlane = 0;
-            CodeBlock = CodeBlock.Invalid;
+            // calling TaggedCodePoint(uint codePoint)
         }
         public TaggedCodePoint(uint codePoint)
         {
             if (codePoint > MaxCodePoint)
                 throw new ArgumentOutOfRangeException("codePoint", "The maximum assignable Unicode codepoint is: 0x10ffff, but you provided: " + codePoint);
+
+            if (codePoint <= char.MaxValue && char.IsSurrogate((char)codePoint))
+                throw new ArgumentOutOfRangeException("codePoint", "Is a surrogate char, expected basic plane char: " + codePoint);
 
             Value = (char)(codePoint & char.MaxValue);
             PropertiesAndPlane = (PropertiesAndUnicodePlane)((codePoint >> 16) & HighPlaneCharMask);
