@@ -87,6 +87,11 @@ namespace ImmutableRope.Unicode
         {
             return (((uint)@this.PropertiesAndPlane & HighPlaneCharMask) << 16) | @this.Value;
         }
+        public static implicit operator int(TaggedCodePoint @this)
+        {
+            return (int)(uint)(@this);
+        }
+
         public static explicit operator char(TaggedCodePoint @this)
         {
             var plane = @this.UnicodePlane;

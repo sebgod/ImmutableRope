@@ -41,7 +41,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Unicode\CodePointList.cs" />
     <Compile Include="Unicode\TaggedCodePoint.cs" />
-    <Compile Include="Unicode\StringBuilderHelper.cs" />
     <Compile Include="Unicode\UnicodeEnumerator.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />

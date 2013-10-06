@@ -43,10 +43,33 @@ namespace ImmutableRope
         {
             return base.GetHashCode();
         }
-        
+
+        public override bool Equals(object other)
+        {
+            if (other is Rope)
+                return Equals(other as Rope);
+
+            return false;
+        }
+
         public bool Equals(Rope other)
         {
-            return true;
+            if (ReferenceEquals(this, other)) return true;
+            if (ReferenceEquals(null, other)) return false;
+
+            return this.ToString() == other.ToString();
         }
+
+        #region relational operator overloading
+        public static bool operator ==(Rope a, Rope b)
+        {
+            return !object.ReferenceEquals(a, null) && a.Equals(b);
+        }
+
+        public static bool operator !=(Rope a, Rope b)
+        {
+            return object.ReferenceEquals(a, null) || !a.Equals(b);
+        }
+        #endregion
     }
 }

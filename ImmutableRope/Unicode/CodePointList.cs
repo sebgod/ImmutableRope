@@ -60,19 +60,21 @@ namespace ImmutableRope.Unicode
             }
             else
             {
-                for (var i = 0; i < _numberOfChars; i++)
+                var codePointIndex = 0;
+                var targetIndex = 0;
+                while (codePointIndex < _numberOfChars)
                 {
-                    var codePoint = _codePoints[i];
+                    var codePoint = _codePoints[codePointIndex++];
                     var plane = codePoint.UnicodePlane;
                     if (plane > 0)
                     {
                         var utf32 = char.ConvertFromUtf32((plane << 16) | codePoint.Value);
-                        chars[i] = utf32[0];
-                        chars[++i] = utf32[1];
+                        chars[targetIndex++] = utf32[0];
+                        chars[targetIndex++] = utf32[1];
                     }
                     else
                     {
-                        chars[i] = _codePoints[i].Value;
+                        chars[targetIndex++] = codePoint.Value;
                     }                    
                 }
             }
