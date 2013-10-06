@@ -7,11 +7,13 @@ using FluentAssertions;
 namespace ImmutableRopeTest
 {
     [TestClass]
-    public class EqualityTests
+    public class EqualityTests : BasicTestClass
     {
-        const string asciiString = "abcdef%6377";
-        const string asciiStringL = "abcdef";
-        const string asciiStringU = "ABCDEF";
+        [ClassInitialize]
+        public static void ClassInitialize(TestContext content)
+        {
+            SetupTestChars(content);
+        }
 
         [TestMethod]
         public void TestIdentity()

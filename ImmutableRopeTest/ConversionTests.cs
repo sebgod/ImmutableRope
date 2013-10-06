@@ -7,29 +7,31 @@ using FluentAssertions;
 namespace ImmutableRopeTest
 {
     [TestClass]
-    public class ConversionTests
+    public class ConversionTests : BasicTestClass
     {
+        [ClassInitialize]
+        public static void ClassInitialize(TestContext content)
+        {
+            SetupTestChars(content);
+        }
+
         [TestMethod]
         public void TestRopeToString()
         {
-            const string testString = "Rope";
-
-            Assert.AreEqual(testString,  new Rope(testString).ToString());
+            new Rope(asciiString).ToString().Should().Be(asciiString);
         }
 
         [TestMethod]
         public void TestImplicitCastFromRopeToString()
         {
-            const string testString = "Rope";
-            Assert.AreEqual<string>(testString, new Rope(testString));
+            Assert.AreEqual<Rope>(new Rope(asciiString), asciiString);
         }
 
         [TestMethod]
         public void TestImplicitCastFromStringToRope()
         {
-            const string testString = "Rope";
-            Rope implicitCast = testString;
-            Assert.AreEqual<string>(testString, implicitCast.ToString());
+            Rope implicitCast = asciiString;
+            implicitCast.ToString().Should().Be(asciiString);
         }
 
         [TestMethod]
