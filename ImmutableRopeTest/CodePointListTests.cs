@@ -22,7 +22,7 @@ namespace ImmutableRopeTest
             new CodePointList(AstralCharSurrogatePair)[0].Should().Be(AstralCodePoint);
         }
 
-        private IEnumerable<TaggedCodePoint> CodePointIterator(uint numberOfChars)
+        private static IEnumerable<TaggedCodePoint> CodePointIterator(uint numberOfChars)
         {
             for (uint codePoint = 0; codePoint < numberOfChars; codePoint++)
                 yield return codePoint;

@@ -21,7 +21,7 @@ namespace ImmutableRope.Unicode
                 if (char.IsHighSurrogate(current))
                 {
                     if (i + 1 == length)
-                        throw new InvalidOperationException(string.Format("Premature end of string; last char was a high surrogate: {0:x}", current));
+                        throw new InvalidOperationException(string.Format("Premature end of string; last char was a high surrogate: {0:x}", (uint)current));
 
                     yield return char.ConvertToUtf32(current, _text[++i]);
                 }

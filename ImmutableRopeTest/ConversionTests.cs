@@ -3,8 +3,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ImmutableRope;
 using System.Diagnostics.CodeAnalysis;
 using FluentAssertions;
-using System.Collections.Generic;
-using ImmutableRope.Unicode;
 
 namespace ImmutableRopeTest
 {
@@ -20,21 +18,21 @@ namespace ImmutableRopeTest
         [TestMethod]
         public void TestRopeToString()
         {
-            new Rope(asciiString).ToString().Should().Be(asciiString);
+            new Rope(AsciiString).ToString().Should().Be(AsciiString);
         }
 
         [TestMethod]
         public void TestImplicitCastFromRopeToString()
         {
-            string implicitCast = new Rope(asciiString);
-            implicitCast.Should().Be(asciiString);
+            string implicitCast = new Rope(AsciiString);
+            implicitCast.Should().Be(AsciiString);
         }
 
         [TestMethod]
         public void TestImplicitCastFromStringToRope()
         {
-            Rope implicitCast = asciiString;
-            implicitCast.ToString().Should().Be(asciiString);
+            Rope implicitCast = AsciiString;
+            implicitCast.ToString().Should().Be(AsciiString);
         }
 
         [TestMethod]
@@ -60,7 +58,10 @@ namespace ImmutableRopeTest
         [ExcludeFromCodeCoverage]
         void InvalidCastFromAstralCharToSysCharAction()
         {
+            // disabled Because Code will never readed the end of the procedure
+// ReSharper disable ObjectCreationAsStatement
             new Rope(AstralCharSurrogatePair.Substring(0, 1));
+// ReSharper restore ObjectCreationAsStatement
         }
 
         [TestMethod]

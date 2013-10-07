@@ -1,20 +1,16 @@
 ﻿using ImmutableRope.Unicode;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FluentAssertions;
 
 namespace ImmutableRopeTest
 {
     public abstract class BasicTestClass
     {
-        internal static char ASCIIChar;
-        internal static string asciiString;
-        internal static string asciiStringL;
-        internal static string asciiStringU;
+        internal static char AsciiChar;
+        internal static string AsciiString;
+        internal static string AsciiStringL;
+        internal static string AsciiStringU;
         internal static string AstralCharSurrogatePair;
         internal static TaggedCodePoint AstralCodePoint;
         internal static char HighSurrogate;
@@ -23,14 +19,14 @@ namespace ImmutableRopeTest
 
         public static void SetupTestChars(TestContext context)
         {
-            ASCIIChar = 'a';
+            AsciiChar = 'a';
             AstralCharSurrogatePair = "𝌲";
             AstralCharSurrogatePair.Length.Should().Be(2);
             AstralCodePoint = new TaggedCodePoint(AstralCharSurrogatePair, 0);
 
-            asciiString = "ABCslxheabcdef%6377";
-            asciiStringL = asciiString.ToLowerInvariant();
-            asciiStringU = asciiString.ToUpperInvariant();
+            AsciiString = "ABCslxheabcdef%6377";
+            AsciiStringL = AsciiString.ToLowerInvariant();
+            AsciiStringU = AsciiString.ToUpperInvariant();
 
             HighSurrogate = AstralCharSurrogatePair[0];
             Assert.IsTrue(char.IsHighSurrogate(HighSurrogate));

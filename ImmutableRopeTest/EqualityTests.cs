@@ -20,7 +20,7 @@ namespace ImmutableRopeTest
         [TestMethod]
         public void TestIdentity()
         {
-            var rope = new Rope(asciiString);
+            var rope = new Rope(AsciiString);
             var identity = rope;
             Assert.AreEqual<Rope>(rope, identity);
         }
@@ -28,7 +28,7 @@ namespace ImmutableRopeTest
         [TestMethod]
         public void TestIdentityOp()
         {
-            var rope = new Rope(asciiString);
+            var rope = new Rope(AsciiString);
             var identity = rope;
             Assert.IsTrue(rope == identity);
         }
@@ -36,8 +36,8 @@ namespace ImmutableRopeTest
         [TestMethod]
         public void TestEqual()
         {
-            var a = new Rope(asciiString);
-            var b = new Rope(asciiString);
+            var a = new Rope(AsciiString);
+            var b = new Rope(AsciiString);
 
             Assert.AreEqual<Rope>(a, b);
         }
@@ -45,8 +45,8 @@ namespace ImmutableRopeTest
         [TestMethod]
         public void TestNotEqual()
         {
-            var ropeL = new Rope(asciiStringL);
-            var ropeU = new Rope(asciiStringU);
+            var ropeL = new Rope(AsciiStringL);
+            var ropeU = new Rope(AsciiStringU);
 
             Assert.AreNotEqual(ropeL, ropeU);
         }
@@ -54,14 +54,14 @@ namespace ImmutableRopeTest
         [TestMethod]
         public void TestNotEqualWithDifferentType()
         {
-            Assert.AreNotEqual(new Rope(asciiString), new object());
+            Assert.AreNotEqual(new Rope(AsciiString), new object());
         }
 
         [TestMethod]
         public void TestSymmetrySame()
         {
-            var c1 = new Rope(asciiString);
-            var c2 = new Rope(asciiString);
+            var c1 = new Rope(AsciiString);
+            var c2 = new Rope(AsciiString);
 
             Assert.IsTrue(c1 == c2 & c2 == c1);
         }
@@ -69,8 +69,8 @@ namespace ImmutableRopeTest
         [TestMethod]
         public void TestSymmetryDifferent()
         {
-            var c1 = new Rope(asciiStringL);
-            var c2 = new Rope(asciiStringU);
+            var c1 = new Rope(AsciiStringL);
+            var c2 = new Rope(AsciiStringU);
 
             Assert.IsTrue(c1 != c2 & c2 != c1);
         }
@@ -78,7 +78,7 @@ namespace ImmutableRopeTest
         [TestMethod]
         public void TestValueNotEqualNullOpPositive()
         {
-            var rope = new Rope(asciiString);
+            var rope = new Rope(AsciiString);
             var nullRope = null as Rope;
 
             Assert.IsTrue(rope != nullRope);
@@ -87,7 +87,7 @@ namespace ImmutableRopeTest
         [TestMethod]
         public void TestValueNotEqualNullOpNegative()
         {
-            var rope = new Rope(asciiString);
+            var rope = new Rope(AsciiString);
             var nullRope = null as Rope;
 
             Assert.IsFalse(rope == nullRope);
@@ -97,7 +97,7 @@ namespace ImmutableRopeTest
         public void TestNullNotEqualValueOpPositive()
         {
             var nullRope = null as Rope;
-            var rope = new Rope(asciiString);
+            var rope = new Rope(AsciiString);
 
             Assert.IsTrue(nullRope != rope);
         }
@@ -106,7 +106,7 @@ namespace ImmutableRopeTest
         public void TestNullNotEqualValueOpNegative()
         {
             var nullRope = null as Rope;
-            var rope = new Rope(asciiString);
+            var rope = new Rope(AsciiString);
 
             Assert.IsFalse(nullRope == rope);
         }
@@ -114,8 +114,8 @@ namespace ImmutableRopeTest
         [TestMethod]
         public void TestEqualOpPositive()
         {
-            var a = new Rope(asciiString);
-            var b = new Rope(asciiString);
+            var a = new Rope(AsciiString);
+            var b = new Rope(AsciiString);
 
             Assert.IsTrue(a == b);
         }
@@ -123,8 +123,8 @@ namespace ImmutableRopeTest
         [TestMethod]
         public void TestEqualOpNegative()
         {
-            var a = new Rope(asciiString);
-            var b = new Rope(asciiString);
+            var a = new Rope(AsciiString);
+            var b = new Rope(AsciiString);
 
             Assert.IsFalse(a != b);
         }
@@ -133,8 +133,8 @@ namespace ImmutableRopeTest
         [TestMethod]
         public void TestNotEqualOpPositive()
         {
-            var ropeL = new Rope(asciiStringL);
-            var ropeU = new Rope(asciiStringU);
+            var ropeL = new Rope(AsciiStringL);
+            var ropeU = new Rope(AsciiStringU);
 
             Assert.IsTrue(ropeL != ropeU);
         }
@@ -142,8 +142,8 @@ namespace ImmutableRopeTest
         [TestMethod]
         public void TestNotEqualOpNegative()
         {
-            var ropeL = new Rope(asciiStringL);
-            var ropeU = new Rope(asciiStringU);
+            var ropeL = new Rope(AsciiStringL);
+            var ropeU = new Rope(AsciiStringU);
 
             Assert.IsFalse(ropeL == ropeU);
         }
@@ -151,7 +151,7 @@ namespace ImmutableRopeTest
         [TestMethod]
         public void TestRoundTripToEnumerator()
         {
-            var ropeOriginal = new Rope(asciiString);
+            var ropeOriginal = new Rope(AsciiString);
             var codePointList = new CodePointList(ropeOriginal);
             var ropeCopy = new Rope(codePointList);
 
@@ -163,11 +163,11 @@ namespace ImmutableRopeTest
         {
             var hashSet = new HashSet<Rope>()
             {
-                new Rope(asciiStringL),
-                new Rope(asciiStringU)
+                new Rope(AsciiStringL),
+                new Rope(AsciiStringU)
             };
             
-            Assert.IsFalse(hashSet.Add(asciiStringL));
+            Assert.IsFalse(hashSet.Add(AsciiStringL));
 
             hashSet.Count.Should().Be(2);
         }

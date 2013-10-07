@@ -18,13 +18,13 @@ namespace ImmutableRopeTest
         [TestMethod]
         public void TestBMPCharValue()
         {
-            Assert.AreEqual(ASCIIChar, new TaggedCodePoint(ASCIIChar).Value);
+            Assert.AreEqual(AsciiChar, new TaggedCodePoint(AsciiChar).Value);
         }
 
         [TestMethod]
         public void TestBMPCodePointToString()
         {
-            new TaggedCodePoint(ASCIIChar).ToString().Should().Be(new string(ASCIIChar, 1));
+            new TaggedCodePoint(AsciiChar).ToString().Should().Be(new string(AsciiChar, 1));
         }
 
         [TestMethod]
@@ -42,13 +42,13 @@ namespace ImmutableRopeTest
         [TestMethod]
         public void TestBMPCharCastToSysChar()
         {
-            Assert.AreEqual(ASCIIChar, (char)new TaggedCodePoint(ASCIIChar));
+            Assert.AreEqual(AsciiChar, (char)new TaggedCodePoint(AsciiChar));
         }
 
         [TestMethod]
         public void TestImplicitCastFromChar()
         {
-            Assert.AreEqual(ASCIIChar, new TaggedCodePoint(ASCIIChar));
+            Assert.AreEqual(AsciiChar, new TaggedCodePoint(AsciiChar));
         }
 
         [TestMethod]

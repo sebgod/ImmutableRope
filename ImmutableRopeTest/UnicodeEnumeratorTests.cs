@@ -17,10 +17,10 @@ namespace ImmutableRopeTest
         [TestMethod]
         public void TestIterator()
         {
-            var asciCharArray = asciiString.ToCharArray();
+            var asciCharArray = AsciiString.ToCharArray();
 
             var index = 0;
-            foreach (char @char in new UnicodeEnumerator(asciiString)) 
+            foreach (char @char in new UnicodeEnumerator(AsciiString)) 
             {
                 Assert.AreEqual(asciCharArray[index++], @char);    
             }       
